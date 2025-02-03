@@ -1,0 +1,35 @@
+name: GitHub Classroom Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  build:
+    name: Autograding
+    runs-on: self-hosted
+
+    if: github.actor != 'Bot'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: education/autograding@v1
+
+      - name: Upload Artifact
+        id: artifact-upload
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: screenshot-diff
+          path: |
+            test-results          
+            step3         
