@@ -1,1 +1,6 @@
-
+.product-card {
+    display: flex;
+}
+.buy-button:hover {
+    background-color: #218838;
+}
